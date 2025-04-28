@@ -1,5 +1,4 @@
 import express  from "express";
-// import fs from "fs/promises"
 import productsRouter from './src/routes/Products.js';
 import cartsRouter from './src/routes/Carts.js';
 

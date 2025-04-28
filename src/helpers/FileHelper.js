@@ -1,4 +1,3 @@
-// const fs = require("fs/promises");
 import fs from "fs/promises"
 class FileHelper {
   
