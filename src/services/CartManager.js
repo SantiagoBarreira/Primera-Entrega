@@ -21,7 +21,7 @@ class CartManager {
         if (!cart) res.status(404).json({ error: 'Carrito no encontrado' });
 
         const productDetails = await Promise.all(cart.products.map(async (item) => {
-            const product = await ProductManager.getProductById(item.productId);
+            const product = await ProductManager.getProductById(item.product);
             return {
                 product: product,
                 quantity: item.quantity
@@ -41,11 +41,11 @@ class CartManager {
         if (!cart) {
             return { error: 'Carrito no encontrado' };
         }
-        const existingProduct = cart.products.find(p => p.productId === productId);
+        const existingProduct = cart.products.find(p => p.product === productId);
         if (existingProduct) {
             existingProduct.quantity++;
         } else {
-            cart.products.push({ productId: productId, quantity: 1 });
+            cart.products.push({ product: productId, quantity: 1 });
         }
 
         await FileHelper.writeJSON(CARTS_PATH, carts);
