@@ -1,0 +1,16 @@
+{
+  "name": "primeraentrega",
+  "version": "1.0.0",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Entrega 1 - Servidor API para Productos y Carritos",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
