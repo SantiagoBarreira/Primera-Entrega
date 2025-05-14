@@ -14,12 +14,12 @@
     ]
   },
   {
-    "id": 5,
-    "title": "Remera Oversize",
-    "description": "Remera oversize de algodón orgánico",
-    "code": "ROV123",
-    "price": 3500,
-    "status": true,
+    "id": 6,
+    "title": "Remera",
+    "description": "Remera de lana",
+    "code": "ROV122",
+    "price": 3000,
+    "status": false,
     "stock": 15,
     "category": "ropa",
     "thumbnails": [
@@ -28,17 +28,23 @@
     ]
   },
   {
-    "id": 6,
-    "title": "Remera Oversize",
-    "description": "Remera oversize de algodón orgánico",
-    "code": "ROV123",
-    "price": 3500,
+    "id": 7,
+    "title": "Short",
+    "description": "short de lana",
+    "code": "ROV988",
+    "price": 2342,
     "status": false,
-    "stock": 15,
-    "category": "ropa",
-    "thumbnails": [
-      "/images/remera1.jpg",
-      "/images/remera2.jpg"
-    ]
+    "stock": 234,
+    "category": "short"
+  },
+  {
+    "id": 8,
+    "title": "Medias",
+    "description": "medias de lana",
+    "code": "R23G",
+    "price": 1000,
+    "status": false,
+    "stock": 29,
+    "category": "ropa"
   }
 ]
