@@ -28,16 +28,6 @@
     ]
   },
   {
-    "id": 7,
-    "title": "Short",
-    "description": "short de lana",
-    "code": "ROV988",
-    "price": 2342,
-    "status": false,
-    "stock": 234,
-    "category": "short"
-  },
-  {
     "id": 8,
     "title": "Medias",
     "description": "medias de lana",
@@ -46,5 +36,25 @@
     "status": false,
     "stock": 29,
     "category": "ropa"
+  },
+  {
+    "id": 9,
+    "title": "Gorro",
+    "description": "gorro de lana",
+    "code": "asd34",
+    "price": 300,
+    "status": false,
+    "stock": 34,
+    "category": "gorros"
+  },
+  {
+    "id": 10,
+    "title": "Short",
+    "description": "short de lana",
+    "code": "adasid",
+    "price": 2000,
+    "status": false,
+    "stock": 44,
+    "category": "shorts"
   }
 ]

@@ -15,8 +15,16 @@ router.get('/:pid', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const newProduct = await ProductManager.addProduct(req.body);
-    res.status(201).json(newProduct);
+    try {
+        const newProduct = await ProductManager.addProduct(req.body);
+        const products = await ProductManager.getAllProducts();
+        req.app.locals.io.emit('productsUpdated', products)
+
+        res.status(201).json(newProduct);
+
+    } catch {
+        res.status(500).json({ error: err.message })
+    }
 });
 
 router.put('/:pid', async (req, res) => {
@@ -26,9 +34,15 @@ router.put('/:pid', async (req, res) => {
 });
 
 router.delete('/:pid', async (req, res) => {
-    const deleted = await ProductManager.deleteProduct(parseInt(req.params.pid));
-    if (deleted) res.json({ message: 'Producto eliminado' });
-    else res.status(404).json({ message: 'Producto no encontrado' });
+    try{
+        const deleted = await ProductManager.deleteProduct(parseInt(req.params.pid));
+        if (deleted) res.json({ message: 'Producto eliminado' });
+        const products = await ProductManager.getAllProducts();
+        req.app.locals.io.emit('productsUpdated', products);
+
+    }catch(err){
+        res.status(404).json({ error: 'Producto no encontrado' });
+    }
 });
 
 export default router;

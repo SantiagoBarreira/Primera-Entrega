@@ -28,21 +28,23 @@ app.set('views', path.resolve('src/views'));
 
 // Static files
 app.use(express.static('src/public'));
+app.locals.io = io;
 
 io.on('connection', (socket) => {
   console.log('Cliente conectado');
+  
+//Este bloque es para usar los socket: Sugerencia 1 de la letra
+//   socket.on('newProduct', async (product) => {
+//     await ProductManager.addProduct(product);
+//     const products = await ProductManager.getAllProducts();
+//     io.emit('productsUpdated', products);
+//   });
 
-  socket.on('newProduct', async (product) => {
-    await ProductManager.addProduct(product);
-    const products = await ProductManager.getAllProducts();
-    io.emit('productsUpdated', products);
-  });
-
-  socket.on('deleteProduct', async (id) => {
-    await ProductManager.deleteProduct(id);
-    const products = await ProductManager.getAllProducts();
-    io.emit('productsUpdated', products);
-  });
+//   socket.on('deleteProduct', async (id) => {
+//     await ProductManager.deleteProduct(id);
+//     const products = await ProductManager.getAllProducts();
+//     io.emit('productsUpdated', products);
+//   });
 
 });
 
