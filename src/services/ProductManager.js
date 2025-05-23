@@ -1,7 +1,7 @@
 import FileHelper from '../helpers/FileHelper.js';
 import Product from '../models/Product.js';
 
-const PRODUCTS_PATH = './src/data/products.json';
+const PRODUCTS_PATH = './data/products.json';
 
 class ProductManager {
 

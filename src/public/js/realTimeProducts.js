@@ -11,7 +11,6 @@ const socket = io();
     product.stock = Number(product.stock);
     product.status = formData.get('status') === 'on';
 
-    // socket.emit('newProduct', product); //Esto para hacerlo con socket
     try{
       await fetch('/api/products', {
       method: 'POST',
@@ -37,7 +36,6 @@ const socket = io();
   });
 
   async function deleteProduct(id) {
-    // socket.emit('deleteProduct', id); //Esto para hacerlo con socket
     try{
       await fetch(`/api/products/${id}`, { method: 'DELETE' });
 

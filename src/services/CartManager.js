@@ -1,6 +1,6 @@
 import FileHelper from '../helpers/FileHelper.js';
 import ProductManager from './ProductManager.js';
-const CARTS_PATH = './src/data/carts.json';
+const CARTS_PATH = './data/carts.json';
 class CartManager {
 
     static async getCarts() {
