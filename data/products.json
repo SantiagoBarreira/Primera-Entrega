@@ -56,5 +56,137 @@
     "status": false,
     "stock": 44,
     "category": "shorts"
+  },
+  {
+    "$__": {
+      "activePaths": {
+        "paths": {
+          "thumbnails": "default",
+          "status": "modify",
+          "category": "modify",
+          "stock": "modify",
+          "price": "modify",
+          "code": "modify",
+          "description": "modify",
+          "title": "modify",
+          "_id": "default"
+        },
+        "states": {
+          "require": {},
+          "default": {
+            "thumbnails": true,
+            "_id": true
+          },
+          "modify": {
+            "title": true,
+            "description": true,
+            "code": true,
+            "price": true,
+            "stock": true,
+            "category": true,
+            "status": true
+          }
+        }
+      }
+    },
+    "_doc": {
+      "title": "sssss",
+      "description": "ssss",
+      "code": "asd",
+      "price": 324,
+      "stock": 2,
+      "category": "asd",
+      "status": true,
+      "thumbnails": [],
+      "_id": "68378c843150f098e1707cf2"
+    }
+  },
+  {
+    "$__": {
+      "activePaths": {
+        "paths": {
+          "thumbnails": "default",
+          "status": "modify",
+          "category": "modify",
+          "stock": "modify",
+          "price": "modify",
+          "code": "modify",
+          "description": "modify",
+          "title": "modify",
+          "_id": "default"
+        },
+        "states": {
+          "require": {},
+          "default": {
+            "thumbnails": true,
+            "_id": true
+          },
+          "modify": {
+            "title": true,
+            "description": true,
+            "code": true,
+            "price": true,
+            "stock": true,
+            "category": true,
+            "status": true
+          }
+        }
+      }
+    },
+    "_doc": {
+      "title": "asd",
+      "description": "asd",
+      "code": "asd",
+      "price": 34,
+      "stock": 324,
+      "category": "324",
+      "status": true,
+      "thumbnails": [],
+      "_id": "68378ce4d010b3d314cf9598"
+    }
+  },
+  {
+    "$__": {
+      "activePaths": {
+        "paths": {
+          "thumbnails": "default",
+          "status": "modify",
+          "category": "modify",
+          "stock": "modify",
+          "price": "modify",
+          "code": "modify",
+          "description": "modify",
+          "title": "modify",
+          "_id": "default"
+        },
+        "states": {
+          "require": {},
+          "default": {
+            "thumbnails": true,
+            "_id": true
+          },
+          "modify": {
+            "title": true,
+            "description": true,
+            "code": true,
+            "price": true,
+            "stock": true,
+            "category": true,
+            "status": true
+          }
+        }
+      }
+    },
+    "_doc": {
+      "title": "holaaaaaaa",
+      "description": "holaaaaaaaaaaa",
+      "code": "34324",
+      "price": 234,
+      "stock": 234,
+      "category": "324",
+      "status": false,
+      "thumbnails": [],
+      "_id": "68378d43d010b3d314cf9599"
+    }
   }
 ]

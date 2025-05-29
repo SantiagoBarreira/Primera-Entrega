@@ -1,5 +1,5 @@
 import FileHelper from '../helpers/FileHelper.js';
-import ProductManager from './ProductManager.js';
+import ProductService from './product.service.js';
 const CARTS_PATH = './data/carts.json';
 class CartManager {
 
@@ -21,7 +21,7 @@ class CartManager {
         if (!cart) res.status(404).json({ error: 'Carrito no encontrado' });
 
         const productDetails = await Promise.all(cart.products.map(async (item) => {
-            const product = await ProductManager.getProductById(item.product);
+            const product = await ProductService.getProductById(item.product);
             return {
                 product: product,
                 quantity: item.quantity

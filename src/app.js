@@ -7,11 +7,12 @@ import { Server } from 'socket.io';
 import { engine } from 'express-handlebars';
 import path from 'path';
 import socketHandler from "./sockets/socketHandler.js";
+import { connectDB } from "./config/db.js";
 
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer);
-
+connectDB();
 const PORT = 8080;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -19,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
-app.use('/view', viewRouter); //Handlebars
+app.use('/view', viewRouter);
 
 // Handlebars
 app.engine('handlebars', engine());

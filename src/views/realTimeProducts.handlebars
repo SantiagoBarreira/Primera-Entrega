@@ -22,7 +22,7 @@
     {{#each products}}
     <li>
       <b>{{title}}</b> - {{description}} - ${{price}}
-      <button onclick="deleteProduct({{id}})">Eliminar</button>
+     <button onclick="deleteProduct('{{_id}}')">Eliminar</button>
     </li>
     {{/each}}
   </ul>

@@ -30,7 +30,7 @@ const socket = io();
     products.forEach(p => {
       productList.innerHTML += `
         <li><b>${p.title}</b> - ${p.description} - $${p.price}
-          <button onclick="deleteProduct(${p.id})">Eliminar</button>
+          <button onclick="deleteProduct(${p._id})">Eliminar</button>
         </li>`;
     });
   });
