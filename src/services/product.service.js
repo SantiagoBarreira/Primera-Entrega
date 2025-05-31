@@ -1,8 +1,4 @@
-import FileHelper from '../helpers/FileHelper.js';
-import {Product} from '../models/product.model.js';
 import ProductRepository from '../repositories/product.repository.js';
-
-const PRODUCTS_PATH = './data/products.json';
 
 class ProductService {
 
@@ -15,8 +11,11 @@ class ProductService {
   }
 
   static async getProductById(pid) {
-    const products = await this.getAllProducts();
-    return products.find(prod => prod.id === pid);
+    const product = await ProductRepository.findById(pid);
+    if(!product){
+      throw new Error('No se encontro el producto')
+    }
+    return product;
   }
 
   static async addProduct(productData) {
@@ -28,12 +27,8 @@ class ProductService {
   }
 
   static async updateProduct(pid, updatedData) {
-    const products = await this.getAllProducts();
-    const index = products.findIndex(p => p.id === pid);
-    if (index === -1) return null;
-    products[index] = { ...products[index], ...updatedData, id: products[index].id };
-    await FileHelper.writeJSON(PRODUCTS_PATH, products);
-    return products[index];
+    await this.getProductById(pid);
+    return await ProductRepository.updateProduct(pid,updatedData)
   }
 
   static async deleteProduct(pid) {
@@ -43,6 +38,38 @@ class ProductService {
     } 
     return await ProductRepository.deleteProduct(pid);
   }
+
+  static async getPaginatedProducts({ limit = 10, page = 1, sort, query }) {
+    const filter = {};
+  
+    if (query) {
+      if (query.toLowerCase() === 'disponible') filter.status = true;
+      else filter.category = query;
+    }
+  
+    const options = {
+      page,
+      limit,
+      sort: sort === 'asc' ? { price: 1 } : sort === 'desc' ? { price: -1 } : {},
+      lean: true
+    };
+  
+    const result = await ProductRepository.getPaginatedProducts(filter, options);
+  
+    return {
+      status: result ? 'success' : 'error',
+      payload: result.docs,
+      totalPages: result.totalPages,
+      prevPage: result.prevPage,
+      nextPage: result.nextPage,
+      page: result.page,
+      hasPrevPage: result.hasPrevPage,
+      hasNextPage: result.hasNextPage,
+      prevLink: result.hasPrevPage ? `/api/products?page=${result.prevPage}` : null,
+      nextLink: result.hasNextPage ? `/api/products?page=${result.nextPage}` : null
+    };
+  }
+
 }
 
 export default ProductService;

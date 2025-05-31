@@ -3,28 +3,21 @@ import ProductService from '../services/product.service.js';
 class ProductController {
 
     async getProducts(req, res) {
+        const { limit, page, sort, query } = req.query;
+    
         try {
-            const {
-                limit = 10,
-                page = 1,
-                sort,
-                query
-            } = req.query;
-
-            const parsedQuery = query ? JSON.parse(query) : {};
-
-            const result = await ProductService.getPaginatedProducts({
-                limit: parseInt(limit),
-                page: parseInt(page),
-                sort,
-                query: parsedQuery
-            });
-
-            res.json(result);
+          const result = await ProductService.getPaginatedProducts({
+            limit: parseInt(limit) || 10,
+            page: parseInt(page) || 1,
+            sort,
+            query
+          });
+    
+          res.json(result);
         } catch (err) {
-            res.status(500).json({ status: 'error', error: err.message });
+          res.status(500).json({ status: 'error', message: err.message });
         }
-    };
+      }
 
     async getProductById(req, res) {
         const product = await ProductService.getProductById(req.params.pid);
@@ -35,9 +28,9 @@ class ProductController {
     async addProduct(req, res) {
         try {
             const newProduct = await ProductService.addProduct(req.body);
-            const products = await ProductService.getAllProducts()
+            const products = await ProductService.getPaginatedProducts({ limit: 10, page: 1 })
 
-            req.app.locals.io.emit('productsUpdated', products)
+            req.app.locals.io.emit('productsUpdated', products.payload)
 
             res.status(201).json({ message: 'Producto Agregado', newProduct });
         } catch (err) {
@@ -54,8 +47,8 @@ class ProductController {
     async deleteProduct(req, res) {
         try {
             await ProductService.deleteProduct(req.params.pid);
-            const products = await ProductService.getAllProducts();//todos estos tienen q ir paginados
-            req.app.locals.io.emit('productsUpdated', products);
+            const products = await ProductService.getPaginatedProducts({ limit: 10, page: 1 });
+            req.app.locals.io.emit('productsUpdated', products.payload);
             res.json({ message: 'Producto eliminado' });
         } catch (error) {
             res.status(404).json({ message: 'Producto no encontrado' });

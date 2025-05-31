@@ -27,5 +27,15 @@
     {{/each}}
   </ul>
 </div>
+<div class="pagination">
+  {{#if pagination.hasPrevPage}}
+    <a href="?page={{pagination.prevPage}}">Anterior</a>
+  {{/if}}
 
+  <span>Página {{pagination.page}} de {{pagination.totalPages}}</span>
+
+  {{#if pagination.hasNextPage}}
+    <a href="?page={{pagination.nextPage}}">Siguiente</a>
+  {{/if}}
+</div>
 <script src="/js/realTimeProducts.js"></script>

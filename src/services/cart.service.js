@@ -1,7 +1,7 @@
 import FileHelper from '../helpers/FileHelper.js';
 import ProductService from './product.service.js';
 const CARTS_PATH = './data/carts.json';
-class CartManager {
+class CartService {
 
     static async getCarts() {
         return await FileHelper.readJSON(CARTS_PATH).catch(() => []);
@@ -57,4 +57,4 @@ class CartManager {
     }
 }
 
-export default CartManager;
+export default CartService;

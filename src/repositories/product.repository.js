@@ -24,6 +24,14 @@ class ProductRepository {
   async deleteProduct(id){
     return await Product.deleteOne({_id: id});
   }
+
+  async getPaginatedProducts(filter = {}, options = {}) {
+    return await Product.paginate(filter, options);
+  }
+
+  async updateProduct(pid, product){
+    return await Product.findByIdAndUpdate(pid, product, { new: true });
+  }
 };
 
 export default new ProductRepository();
