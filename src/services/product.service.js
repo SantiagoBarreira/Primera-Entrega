@@ -17,13 +17,24 @@ class ProductService {
     }
     return product;
   }
-
-  static async addProduct(productData) {
+  
+  static async addProduct(productData, imagePaths) {
     const existingProduct = await ProductRepository.findByTitle(productData.title);
     if(existingProduct){
       throw new Error('Este producto ya Existe')
     }
-    return await ProductRepository.addProduct(productData);
+    const product = {
+      title: productData.title,
+      description: productData.description,
+      price: parseFloat(productData.price),
+      code: productData.code,
+      stock: parseInt(productData.stock),
+      category: productData.category,
+      status: productData.status === 'on' || productData.status === true,
+      thumbnails: imagePaths
+    };
+  
+    return await ProductRepository.addProduct(product);
   }
 
   static async updateProduct(pid, updatedData) {

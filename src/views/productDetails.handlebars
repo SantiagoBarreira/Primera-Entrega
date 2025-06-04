@@ -1,5 +1,5 @@
 <nav style="background: #f2f2f2; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
-  <a href="/view/products">Volver a la lista de productos</a>
+  <a href="/view/realtimeproducts">Volver a la lista de productos</a>
 </nav>
 
 <h1>{{product.title}}</h1>
@@ -11,8 +11,4 @@
 
 <button onclick="addToCart('{{product._id}}')">Agregar al carrito</button>
 
-<script>
-  function addToCart(id) {
-    console.log('Agregar al carrito:', id);
-  }
-</script>
+<script src="/js/product.js"></script>

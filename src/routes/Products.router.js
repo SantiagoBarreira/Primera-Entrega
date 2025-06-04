@@ -1,13 +1,14 @@
 import { Router } from 'express';
-import ProductService from "../services/product.service.js"
 import ProductController from '../controllers/product.controller.js';
+import upload from '../middlewares/multer.middleware.js';
+
 const router = Router();
 
-router.get('/',  ProductController.getProducts);
+router.get('/', ProductController.getProducts);
 
 router.get('/:pid', ProductController.getProductById);
- 
-router.post('/', ProductController.addProduct);
+
+router.post('/', upload.array('thumbnails',3), ProductController.addProduct);
 
 router.put('/:pid', ProductController.updateProduct);
 

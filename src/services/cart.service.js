@@ -1,60 +1,56 @@
-import FileHelper from '../helpers/FileHelper.js';
-import ProductService from './product.service.js';
-const CARTS_PATH = './data/carts.json';
+import CartRepository from '../repositories/cart.repository.js';
+
 class CartService {
+  async createCart() {
+    return CartRepository.createCart();
+  }
 
-    static async getCarts() {
-        return await FileHelper.readJSON(CARTS_PATH).catch(() => []);
+  async getCartById(cid) {
+    return CartRepository.findById(cid);
+  }
+
+  async deleteCart(cid) {
+    return CartRepository.deleteCart(cid);
+  }
+
+  async removeProductFromCart(cid, pid) {
+    return CartRepository.deleteProductFromCart(cid, pid);
+  }
+
+   async cartHaveProduct(pid){
+    return await CartRepository.findCartsWithProduct(pid);
+  }
+
+
+  async updateCart(cid, newProducts) {
+    if (!Array.isArray(newProducts)) {
+      throw new Error('El cuerpo debe ser un array de productos');
     }
-
-    static async createCart() {
-        const carts = await this.getCarts();
-        const newCart = { id: this.generateId(carts), products: [] };
-        carts.push(newCart);
-        await FileHelper.writeJSON(CARTS_PATH, carts);
-        return newCart;
+  
+    const valid = newProducts.every(
+      (item) => item.product && typeof item.quantity === 'number' && item.quantity >= 1
+    );
+  
+    if (!valid) {
+      throw new Error('Cada producto debe tener un ID y una cantidad numérica válida (>= 1)');
     }
+    return CartRepository.updateCartProducts(cid, newProducts);
+  }
 
-    static async getCartById(id) {
-        const carts = await this.getCarts();
-        const cart = carts.find(cart => cart.id === id)
-        if (!cart) res.status(404).json({ error: 'Carrito no encontrado' });
-
-        const productDetails = await Promise.all(cart.products.map(async (item) => {
-            const product = await ProductService.getProductById(item.product);
-            return {
-                product: product,
-                quantity: item.quantity
-            };
-        }));
-
-        return {
-            id: cart.id,
-            products: productDetails // Array con los productos y cantidades
-        };
+  async updateQuantity(cid, pid, quantity) {
+    if (quantity < 1) {
+      throw new Error('La cantidad debe ser mayor a 0');
     }
+    return CartRepository.updateProductQuantity(cid, pid, quantity);
+  }
 
-    static async addProductToCart(cartId, productId) {
-        const carts = await this.getCarts();
-        const cart = carts.find(c => c.id === cartId);
+  async clearCart(cid) {
+    const cart = await CartRepository.clearCart(cid);
+    if (!cart) throw new Error('Carrito no encontrado');
+    return cart;
+  }
 
-        if (!cart) {
-            return { error: 'Carrito no encontrado' };
-        }
-        const existingProduct = cart.products.find(p => p.product === productId);
-        if (existingProduct) {
-            existingProduct.quantity++;
-        } else {
-            cart.products.push({ product: productId, quantity: 1 });
-        }
-
-        await FileHelper.writeJSON(CARTS_PATH, carts);
-        return cart;
-    }
-
-    static generateId(products) {
-        return products.length > 0 ? Math.max(...products.map(prod => prod.id)) + 1 : 1;
-    }
 }
 
-export default CartService;
+export default new CartService();
+

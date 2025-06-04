@@ -1,0 +1,48 @@
+<nav style="background: #f2f2f2; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+  <a href="/view/realtimeproducts">Volver a la lista de productos</a>
+</nav>
+<h1>Carrito</h1>
+
+{{#if products.length}}
+<table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Producto</th>
+      <th>Precio</th>
+      <th>Cantidad</th>
+      <th>Subtotal</th>
+      <th>Acción</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+    <tr>
+      <td style="width: 110px; text-align: center;">
+        {{#if product.thumbnails.[0]}}
+        <img src="{{product.thumbnails.[0]}}" alt="{{product.title}}"
+          style="width: 100px; height: auto; display: block; margin: auto;" />
+        {{/if}}
+      </td>
+      <td>{{product.title}}</td>
+      <td>${{product.price}}</td>
+      <td>{{quantity}}</td>
+      <td><b>${{subtotal}}</b></td>
+      <td>
+        <button onclick="deleteProductFromCart('{{product._id}}','{{../cartId}}')">Eliminar</button>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<h3 style="margin-top: 20px;">Total: ${{total}}</h3>
+
+<button onclick="emptyCart('{{cartId}}')">Vaciar carrito</button>
+<br>
+<br>
+{{else}}
+<p>El carrito está vacío.</p>
+{{/if}}
+
+<script src="/js/product.js"></script>

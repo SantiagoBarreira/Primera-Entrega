@@ -13,29 +13,72 @@
   <input name="stock" placeholder="Stock" type="number" required />
   <input name="category" placeholder="Categoría" required />
   <input name="status" type="checkbox" /> Activo
+  <input type="file" name="thumbnails" multiple />
   <button type="submit">Agregar producto</button>
 </form>
 <br>
 <div>
   <h2>Lista de productos</h2>
-  <ul id="productList">
+
+  <div class="product-grid">
     {{#each products}}
-    <li>
-      <b>{{title}}</b> - {{description}} - ${{price}}
-     <button onclick="deleteProduct('{{_id}}')">Eliminar</button>
-    </li>
+    <div class="product-card">
+      <br />
+      <div>
+        {{#if thumbnails.[0]}}
+        <img src="{{thumbnails.[0]}}" alt="{{title}}" />
+        {{/if}}
+      </div>
+      <h3>{{this.title}}</h3>
+      <p><strong>Precio:</strong> ${{this.price}}</p>
+      <p><strong>Categoría:</strong> {{this.category}}</p>
+      <p>{{this.description}}</p>
+      <a href="/view/products/{{this._id}}">Ver detalles</a>
+      <button onclick="addToCart('{{this._id}}')">Agregar al carrito</button>
+      <br>
+      <br>
+      <button onclick="deleteProduct('{{this._id}}')">Eliminar producto</button>
+    </div>
     {{/each}}
-  </ul>
-</div>
-<div class="pagination">
-  {{#if pagination.hasPrevPage}}
+  </div>
+
+  <div class="pagination">
+    {{#if pagination.hasPrevPage}}
     <a href="?page={{pagination.prevPage}}">Anterior</a>
-  {{/if}}
+    {{/if}}
 
-  <span>Página {{pagination.page}} de {{pagination.totalPages}}</span>
+    <span>Página {{pagination.page}} de {{pagination.totalPages}}</span>
 
-  {{#if pagination.hasNextPage}}
+    {{#if pagination.hasNextPage}}
     <a href="?page={{pagination.nextPage}}">Siguiente</a>
-  {{/if}}
-</div>
-<script src="/js/realTimeProducts.js"></script>
+    {{/if}}
+  </div>
+  <script src="/js/product.js"></script>
+  <script src="/js/realTimeProducts.js"></script>
+
+  <style>
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .product-card {
+      border: 1px solid #ddd;
+      padding: 1rem;
+      width: 250px;
+      border-radius: 8px;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+
+    .pagination {
+      margin-top: 2rem;
+    }
+  </style>
