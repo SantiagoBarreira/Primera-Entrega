@@ -1,7 +1,6 @@
 async function addToCart(productId) {
   try {
     let cartId = localStorage.getItem('cartId');
-    alert(cartId)
     // Verifico si el carrito guardado realmente existe
     if (cartId) {
       const verify = await fetch(`/api/carts/${cartId}`);
@@ -23,7 +22,6 @@ async function addToCart(productId) {
     const response = await fetch(`/api/carts/${cartId}/products/${productId}`, {
       method: 'POST'
     });
-    alert(response.status)
     if (response.ok) {
       alert('Producto agregado al carrito');
     } else {
